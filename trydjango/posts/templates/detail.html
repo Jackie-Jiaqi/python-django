@@ -1,0 +1,47 @@
+
+{%extends "base.html"%}
+{%block content%}
+<section class="section11">
+<style>
+    .btn1{
+        color: #ecf0f1 !important;
+        background-color: #2980b9 !important;
+        border-color: #2980b9 !important;
+    }
+    .section11{width:100%;height:1000px}
+    {% block style%}
+    h1 {
+    color: #777777;
+    }
+    input {
+    background: #green;
+    }
+    {%endblock style%}
+</style>
+    <Link rel="stylesheet" href="/static/css/Home.css">
+    <div class="weizhi"></div>
+<div class="bootstrap-function">
+          <div class="image-text">
+            <div class="function-introf">
+              <div class="function-intro5">
+                <div class="function-img0"><p style="color:white">Let Us Generate the Final Result</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<div class="col-sm-6 col-sm-offset-3">
+{% if messages %}
+<ul class="messages">
+    {% for message in messages%}
+    <li {%if message.tags%} class="{{message.tags}}" {% endif %}>{{message}}</li>
+    {%endfor%}
+</ul>
+{% endif %}
+<h1></h1>
+<img src="{{instance.image.url}}" class="img-responsive" height="200px" width="200px"/><br/>
+<form action="#" method="get">
+ <input type="submit" class="btn1" value="Generate result" name="mybtn" align="center">
+</form>
+</div>
+</section>
+{% endblock content%}

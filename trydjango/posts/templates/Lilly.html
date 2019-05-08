@@ -1,0 +1,195 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>The Lilly Pilly</title>
+
+    <Link rel="stylesheet" href="../../static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">The Lilly Pilly</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 0.1em">G<br>arden Pests</h2><br><br><br>
+          <a href="#name" style="font:1.5em Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:1.5em Georgia;">How to Grow</a><br><br><br>
+          <a href="#control" style="font:1.5em Georgia;">Pests & Diseases of Lilly Pillies</a>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+      <h1 class="h1" id="name">The Lilly Pilly</h1>
+      <br>
+      <h2 class="h2">This could make a good smaller option for anyone who wants to have a low attractive garden. They are mostly found on the Eastern parts of the country. They grow to 20 metres and can be easily maintained for greener environment.</h2>
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="../../static/img/Lilly1.png" target="_blank"><img src="../../static/img/Lilly1.png" alt=""/></a></li>
+                         <li><a href="../../static/img/Lilly2.jpg" target="_blank"><img src="../../static/img/Lilly2.jpg" alt=""/></a></li>
+                         <li><a href="../../static/img/Lilly3.jpg" target="_blank"><img src="../../static/img/Lilly3.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">The Lilly Pilly</li>
+                         <li class="normal">The Lilly Pilly</li>
+                         <li class="normal">The Lilly Pilly</li>
+                         <li class="normal">The Lilly Pilly</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="../../static/img/Lilly1.png" alt=""/></li>
+                     <li class="normal"><img src="../../static/img/Lilly2.jpg" alt=""/></li>
+                     <li class="normal"><img src="../../static/img/Lilly3.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">How to Grow </h1>
+          <br>
+          <h2 class="h2">Lilly pillies can grow in full sun or shade, tolerate drought once established and will grow in a wide range of soils. Of course the more sun, water and nutrient rich soil you give them the faster they’ll grow which is worth keeping in mind if you’re after a quick growing hedge or screen.
+
+Ideally choose a sunny position which has some protection from hard frosts or biting cold winds. Lilly pillies are tough when established but young plants will benefit from a little shelter. Improve the soil with organic compost and manure and if planting into heavy clay apply some eco-flo gypsum as well.
+
+Water your plants in with eco-seaweed to help them settle and encourage new root development. Mulch with sugar cane mulch to retain soil moisture and keep weeds at bay. As it breaks down it will further improve the soil.</h2>
+          <br>
+            <h1 class="h1" id="control">Pests & Diseases of Lilly Pillies</h1>
+      <br>
+            <h2 class="h2">Psyllids – Some lilly pillies are frequently attacked by this sap sucking pest which can be difficult to eradicate. The species Syzygium australe and it’s many cultivars are very susceptible. Psyllids only attack new leaves causing distortions that look like small bubbles or pimples. Control can be difficult as the insect is well protected inside these bubbles.  Gardeners have told us they’ve had success with regular sprays of eco-oil combined with eco-neem whenever new growth is present. We have not run trials ourselves so this isn’t approved on the product labels. Of course the easier option is to simply not plant Syzygium australe and it’s cultivars. The other lilly pilly types are usually psyllid resistant with only occasional small outbreaks.
+                <br>
+                Aphids and mites – these pests suck sap from the plant and be controlled with eco-oil.
+                <br>
+                Sooty mould – this is a secondary problem caused by sap sucking pests (like scale and aphids). Apply eco-oil and the sooty mould will dry up and flake away.
+                <br>
+                Mealybugs – spray with eco-neem and ensure thorough coverage to reach everywhere the mealybugs are hiding. Or release our Backyard Buddy Linda (a special type of ladybeetle) onto infested plants and watch her feast on the mealybugs!
+                <br>
+                Ants – if you notice lots of ants on your lilly pilly then it means you’ve got sap suckers present and the ants are feeding on their sugary excretions. Control the sap suckers (with either eco-oil or eco-neem, where applicable) and the ants will go away. You can speed things up by applying a band of horticultural glue around the base of trunks to restrict their movements.
+                <br></h2>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

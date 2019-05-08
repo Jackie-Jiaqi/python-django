@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content%}
+<section class="section1">
+<Link rel="stylesheet" href="/static/css/Home.css">
+    <style class="text/css">
+        .btn-default {
+            color: #ecf0f1 !important;
+            background-color: #2980b9 !important;
+            border-color: #2980b9 !important;
+        }
+
+        .section1{width:100%;height:1000px}
+    </style>
+    <div class="weizhi"></div>
+<div class="bootstrap-function">
+          <div class="image-text">
+            <div class="function-introf">
+              <div class="function-intro5">
+                <div class="function-img0"><p style="color:white;">Upload a Leaf Image to See the Health Condition</p> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+<div class="col-sm-6 col-sm-offset-3">
+    {{ block.super}}
+    {% if messages %}
+    <br/>
+    <br/>
+    <ul class="messages">
+        {% for message in messages%}
+        <li {%if message.tags%} class="{{message.tags}}"{%endif%}>{{message}}</li>
+        {%endfor%}
+    </ul>
+    {%endif%}
+    <h1>Leaf Identification</h1>
+    {%if form %}
+    <form method="POST",action="" enctype="multipart/form-data">{% csrf_token %}
+        <br/>
+    {{form.as_p}}
+        <br/>
+        <button class="btn btn-default" type="submit" name="button">Upload the Image</button>
+    </form>
+    {%endif%}
+    <h3>You upload an invalid file format, Please upload an image with jpg, png or jpeg extention</h3>
+</div>
+    </section>
+{%endblock content%}

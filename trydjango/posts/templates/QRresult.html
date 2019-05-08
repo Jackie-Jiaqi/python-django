@@ -1,0 +1,28 @@
+{%extends "base.html"%}
+
+{%block content%}
+
+    <style class="text/css">
+        .h2{
+            text-align: center;
+            padding-bottom: 80px;
+            padding-top:20px;
+            font-size: 50px;
+            font-style: unset;
+            font-weight: revert;
+        }
+        .QR{
+          margin-left: 200px;
+          margin-right: 200px;
+          height:600px;
+          width:600px;
+        }
+    </style>
+
+
+<div class="col-sm-6 col-sm-offset-3">
+<br/>
+    <img class="QR" src="{{path}}" >
+
+    </div>
+{%endblock content%}

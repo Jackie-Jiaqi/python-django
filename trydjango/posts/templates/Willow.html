@@ -1,0 +1,186 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>Willow</title>
+
+    <Link rel="stylesheet" href="../../static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">Willow Bottlebrush</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 0.1em">G<br>arden Pests</h2><br><br><br>
+          <a href="#name" style="font:1.5em Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:1.5em Georgia;">How to identify</a><br><br><br>
+          <a href="#control" style="font:1.5em Georgia;">How to control and prevent</a>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">Willow Bottlebrush</h1>
+      <br>
+            <h2 class="h2">As the name suggest, this tree has white flowers spread like a bottle brush. It is a true native tree here and can be found in a number of garden in the city of Melbourne.
+            <br>
+                Bottlebrushes are members of the genus Callistemon and belong to the family Myrtaceae. They are closely related to paperbark melaleucas, which also have 'bottlebrush' shaped flower spikes. It is difficult to tell to which genus some species belong. Botanists are currently closely studying these plants to determine how they are best classified. There are 40 species currently called Callistemon.
+            </h2>
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="../../static/img/Willow1.jpg" target="_blank"><img src="../../static/img/Willow1.jpg" alt=""/></a></li>
+                         <li><a href="../../static/img/Willow2.jpg" target="_blank"><img src="../../static/img/Willow2.jpg" alt=""/></a></li>
+                         <li><a href="../../static/img/Willow3.jpg" target="_blank"><img src="../../static/img/Willow3.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">Willow Bottlebrush</li>
+                         <li class="normal">Willow Bottlebrush</li>
+                         <li class="normal">Willow Bottlebrush</li>
+                         <li class="normal">Willow Bottlebrush</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="../../static/img/Willow1.jpg" alt=""/></li>
+                     <li class="normal"><img src="../../static/img/Willow2.jpg" alt=""/></li>
+                     <li class="normal"><img src="../../static/img/Willow3.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">How to Grow</h1>
+          <br>
+          <h2 class="h2">Bottlebrushes make excellent garden plants. Plants are all woody shrubs which range from 0.5 m to 4 m tall. The flowers can be spectacular and are irresistible to nectar-feeding birds and insects. Most species are frost tolerant.
+The popularity of bottlebrushes as garden plants commenced soon after European settlement and Crimson Bottlebrush (Callistemon citrinus ) was introduced to Britain by Joseph Banks in 1789.
+Many species can tolerate (or thrive in) damp conditions, yet most are very hardy and will tolerate drought and limited maintenance. They grow well in a wide variety of soils, except those which are highly alkaline. Plants grown in full sun produce the best flowers.
+Plants can be lightly pruned after flowering to keep them in shape. A low-phosphorous fertiliser should be applied in spring and autumn. Mulching will help retain soil moisture and reduce weed growth.
+Many cultivars have been selected from natural variants and hybrids between species. Some of these are very good garden plants.</h2>
+          <br>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

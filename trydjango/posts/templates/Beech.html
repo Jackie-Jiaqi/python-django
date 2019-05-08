@@ -1,0 +1,187 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>Australian Beech</title>
+
+    <Link rel="stylesheet" href="/static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">Australian Beech</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 0.1em">G<br>arden Pests</h2><br><br><br>
+          <a href="#name" style="font:1.5em Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:1.5em Georgia;">How to identify</a><br><br><br>
+          <a href="#control" style="font:1.5em Georgia;">Australian Beech In Garden</a>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">Australian Beech</h1>
+      <br>
+            <h2 class="h2">Also known as Myrtle Beech or Tasmanian Myrtle, Australian Beech grows mainly in eastern Victoria and Tasmania. While it’s got no real relation to European Myrtle, early timber workers encountering the tree in the region gave it its name for the similarity in its characteristics.</h2>
+            <h2 class="h2">Australian Beech grows typically between 30 and 40 meters. An evergreen varietal, the tree is quite robust and hardy, with dark green leaves that shine a brilliant red, orange, or pink with new growth in the spring. Often found springing up in highly volcanic and acidic soils, the Australian Beech has long been a favourite pick for cabinetry thanks to its tough, close, hard grain.</h2>
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="/static/img/leaves/Beech1.jpg" target="_blank"><img src="/static/img/leaves/Beech1.jpg" alt=""/></a></li>
+                         <li><a href="/static/img/leaves/Beech2.jpg" target="_blank"><img src="/static/img/leaves/Beech2.jpg" alt=""/></a></li>
+                         <li><a href="/static/img/leaves/Beech3.jpg" target="_blank"><img src="/static/img/leaves/Beech3.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">Australian Beech</li>
+                         <li class="normal">Australian Beech</li>
+                         <li class="normal">Australian Beech</li>
+                         <li class="normal">Australian Beech</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="/static/img/leaves/Beech1.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/leaves/Beech2.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/leaves/Beech3.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">How to identify </h1>
+          <br>
+          <h2 class="h2">Australian Beech produces beautiful hues, ranging from pale brown to gold, resulting in undertones that include slight pink or even light cream. Beech flooring is typically a blend of lighter hardwoods, with grain patterns that can range from fiddle-backed and wavy, interlocked, or straight. Highly appealing for furniture, joinery, and veneers thanks to its burls, this attractive timber is often used for commercial purposes thanks to its creamy, warm, pink tones.
+Australian Beech features a Janka hardness rating, dependent on the specific timber, of typically around 7.5. Its pH level is around 4.5, making it moderately acidic.</h2>
+          <br>
+            <h1 class="h1" id="control">Australian Beech In Garden</h1>
+      <br>
+            <h2 class="h2">Dry density for Australian Beech ranges between 780-900 kg/m³. Again, as individual specimens can vary to some degree in not just grain pattern and color but density, hardness, and acidity. Specific example ranges are to be expected but not guaranteed.
+
+Suited to both natural timber flooring and parquetry, Australian Beech is an attractive choice for many building and decorating projects.</h2>
+      <br>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

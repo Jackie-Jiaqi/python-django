@@ -1,0 +1,185 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>Mealybugs</title>
+
+    <Link rel="stylesheet" href="/static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">Mealybugs</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 15px">G<br>arden <br>Pests</h2><br><br><br>
+          <a href="#name" style="font:20px Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:20px Georgia;">Infestations</a><br><br><br>
+          <a href="#control" style="font:20px Georgia;">How to control and prevent</a>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">Mealybugs</h1>
+      <br>
+            <h2 class="h2">Mealybugs has soft bodied and covered by a white waxy coating. They are sap-sucking insects that feed on a wide range of plants. They are found commonly in garden that affect ornamental plants, citrus plants, ferns, orchids, greenhouse plants and trees. Usually it can be found in clusters underside of leaves and stems where they feed on plant juices. They produce waxy filaments as a protective barrier. They feed by inserting their mouthparts directly into the plant, sucking up nutrients from the sap. They also produce large quantities of a sticky secretion called ‘honeydew’ which often allows the growth of fungi leading to a black coating called ‘sooty mould’.</h2>
+
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="#" target="_blank"><img src="/static/img/3.1 Mealybugs.jpg" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/3.2 I-HO-PAFF-CO.011h.jpg" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/3.3 I-HO-PMAR-EG.013.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">Mealybugs</li>
+                         <li class="normal">Mealybugs</li>
+                         <li class="normal">Mealybugs</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="/static/img/3.1 Mealybugs.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/3.2 I-HO-PAFF-CO.011h.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/3.3 I-HO-PMAR-EG.013.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">Infestations</h1>
+          <br>
+          <h2 class="h2">Leaf yellowing and curling. Wilted plants. Sticky foliage due to the honeydew secreted by the mealybugs</h2>
+          <br>
+            <h1 class="h1" id="control">Control and Preventions</h1>
+      <br>
+            <h2 class="h2">In the early stages of infestation, spray the plant daily with strong stream of cold water. Attract natural predators, such as Ladybirds, Lacewings and Parasitic Wasps by planting Fennel, Coreopsis, Dill and Bright flowers. Drop alcohol or methylated spirits on the mealybugs. This will burn them but won’t harm your plants. Prune the affected plants if the infestation is light. Apply insecticidal soap to the underside of leaves. Spray any infested areas with a mixture of equal parts of dishwashing liquid and water. The soap will suffocate the mealybugs. Spray the bugs with garlic or chilli soap. Grow ant repellent plants to keep ants away from your garden. The ants protect the mealybugs from their predators.</h2>
+      <br>
+            <h1 class="h1">Non-Chemical Control</h1>
+          <h2 class="h2">Organic Sprays for Mealybugs. As soft bodied insect pests, mealybugs are susceptible to insect soap sprays. Gardeners must spray mealybugs directly with the insect soap to disrupt the cell membrane and kill the insects, so this spray doesn't work as a preventative agent.</h2>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

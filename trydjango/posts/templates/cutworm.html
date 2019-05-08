@@ -1,0 +1,185 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>cutworms</title>
+
+    <Link rel="stylesheet" href="/static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">Cutworms</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 15px">G<br>arden <br>Pests</h2><br><br><br>
+          <a href="#name" style="font:20px Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:20px Georgia;">Damages</a><br><br><br>
+          <a href="#control" style="font:20px Georgia;">How to control and prevent</a>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">Cutworms</h1>
+      <br>
+            <h2 class="h2">Cutworms are smooth and plump caterpillars of many moth species, growing to about 40mm long They feed on all crops, vegetables and small plants. The caterpillars hide under the soil. It can be located by removing the soil surface near damaged plants</h2>
+
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="#" target="_blank"><img src="/static/img/11.3 prevent-cutworm-damage_full_width.jpg" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/11.4 4cutworm larvae_4.jpg" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/11.5 Cutworm3_0.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">cutworms</li>
+                         <li class="normal">cutworms</li>
+                         <li class="normal">cutworms</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="/static/img/11.3 prevent-cutworm-damage_full_width.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/11.4 4cutworm larvae_4.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/11.5 Cutworm3_0.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">Damages </h1>
+          <br>
+          <h2 class="h2"> Stems at or below the soil surface of newly emerged crop and vegetable seedlings. Most damaging in Autumn</h2>
+          <br>
+            <h1 class="h1" id="control">Control and Preventions</h1>
+      <br>
+            <h2 class="h2">Make plant collars. Put a 4-inch piece of cardboard around each plant stem to help stop cutworms from reaching tender stems, especially when you transplant. It is time consuming task it works efficiently for only smaller gardens. Hand pick it during night and drop into soapy water. Repeat this for few nights. Circle stems with diatomaceous earth, a natural powder made from ground up fossils which kills insects when they walk over it. Delay the plantation a couple of weeks if possible. This will cut off their food supply for emerging cutworms especially during Spring season. At the end of the season, plow the garden and mow surrounding areas to expose cutworms and destroy their winter habitat. Birds are another natural predator to cutworms. Learn how to make your garden bird-friendly.</h2>
+      <br>
+            <h1 class="h1">Non-Chemical Control</h1>
+            <h2 class="h2">Cutworm larvae have a number of natural enemies. Predators include several species of ground beetles. Parasitoids include tachinid flies and braconid wasps. Cutworms may also be attacked by fungi, bacteria, and nematodes. Understanding the biology of beneficial organisms is imperative in order to use them effectively as pest control agents. For example, insect parasitic nematodes like Steinerema carpocapsae or insect-infecting fungi like Beauveria bassiana require adequate humidity to be effective. Other predators include spiders, minute pirate bugs, damsel bugs, and lacewing larvae. Birds also prey on cutworms, so do not assume that the birds in the field are causing the seedling damage. As with other pests discussed, farmscaping is a recommended means of increasing the numbers of beneficial predators and parasites that help to keep cutworms under control. In the resources section I have listed an ATTRA publication that is a good starting point for biointensive IPM, titled Biointensive Integrated Pest Management. There is a direct link to this publication.</h2>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content%}
+
+    <style class="text/css">
+        .btn-default {
+            color: #ecf0f1 !important;
+            background-color: #2980b9 !important;
+            border-color: #2980b9 !important;
+        }
+
+        .
+    </style>
+
+<div class="col-sm-6 col-sm-offset-3">
+    {{ block.super}}
+    {% if messages %}
+    <br/>
+    <br/>
+    <ul class="messages">
+        {% for message in messages%}
+        <li {%if message.tags%} class="{{message.tags}}"{%endif%}>{{message}}</li>
+        {%endfor%}
+    </ul>
+    {%endif%}
+    <h1>Generate Your Personal QR Code</h1>
+    {%if form %}
+    <form method="POST",action="" enctype="multipart/form-data">{% csrf_token %}
+        <br/>
+    {{form.as_p}}
+        <br/>
+        <button class="btn btn-default" type="submit" name="button">Upload the Image</button>
+    </form>
+    {%endif%}
+</div>
+{%endblock content%}

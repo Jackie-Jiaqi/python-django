@@ -1,0 +1,177 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>Citrus_Leafminer</title>
+
+    <Link rel="stylesheet" href="/static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 2; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 2){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">Citrus Leafminer</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 15px">G<br>arden <br>Pests</h2><br><br><br>
+          <a href="#name" style="font:20px Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:20px Georgia;">Infestation</a><br><br><br>
+          <a href="#control" style="font:20px Georgia;">How to control and prevent</a>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">Citrus Leafminer</h1>
+      <br>
+        <h2 class="h2">Citrus leafminer is the larvae of a tiny silvery white moth which lays eggs on new growth of citrus plant. The leafminer larvae tunnel into the leaf leaving silvery trails. Usually it appears from the beginning of summer to autumn. Severe infestations can slow down the growth of young trees.</h2>
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="#" target="_blank"><img src="/static/img/6.1 Citrus-Leafminer-silver-trail.jpg" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/6.2 clmad_0.png" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">Citrus_leafminer</li>
+                         <li class="normal">Citrus_leafminer</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="/static/img/6.1 Citrus-Leafminer-silver-trail.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/6.2 clmad_0.png" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">Infestation </h1>
+          <br>
+          <h2 class="h2">Curling and distortion of mainly new growth.  Silvery trails on the leaf surface.</h2>
+          <br>
+            <h1 class="h1" id="control">Control and Preventions</h1>
+      <br>
+            <h2 class="h2">Remove any affected leaves. Then place the leaves in plastic bags and leave them out in the sun. Spray with horticultural oil to prevent the moth from laying new eggs. You should apply it before too many eggs have been laid. Attract natural predators, such as Parasitic Wasps and Lacewings to your garden.</h2>
+      <br>
+            <h1 class="h1">Non-Chemical Control</h1>
+            <h2 class="h2">If possible remove affected leaves by hand and place in rubbish bin. Hang eco-CLM traps to capture males and reduce population levels. Spray new growth with eco-oil ensuring good coverage (top and bottom of leaves). Spray every 5-14 days whenever new growth is present to deter the moth laying fresh eggs. Alternatively on ornamental citrus spray new growth with eco-neem. eco-neem will penetrate slightly into the leaf and actually kill the juvenile leafminer providing broader protection. Again apply every 5 to 14 days while new growth is present and ensure good coverage.
+</h2>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

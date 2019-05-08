@@ -1,0 +1,47 @@
+{%extends "base.html"%}
+{%block content%}
+<div class="col-sm-6 col-sm-offset-3">
+    <br/><br/><br/>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>collect data from datalist</title>
+</head>
+<body>
+<div>
+    Please enter the common name for insect: <input id="txt_1" list="datalist_1"/>
+    <datalist id="datalist_1">
+	<option data-id="Aphids are small sap-sucking insects and members of the superfamily Aphidoidea. Common names include greenfly and blackfly, although individuals within a species can vary widely in colour. The group includes the fluffy white woolly aphids" value="Aphids">Aphids</option>
+	<option data-id="Covered with fine wax powder giving most species a floury, dusted appearance" value="Whitefly">Whitefly</option>
+	<option data-id="Mealybugs are insects in the family Pseudococcidae, unarmored scale insects found in moist, warm climates. Mealybugs create copious amounts of honeydew which make plant parts sticky, attracts ants, and provides a substrate for sooty mold" value="Mealybug">Mealybug</option>
+	<option data-id="Sorry, there is no description for this species." value="Cabbage Moth">Cabbage Moth</option>
+	<option data-id="metallic green body and legs with coppery-brown wing covers" value="Japanese Bettle">Japanese Bettle</option>
+	<option data-id="Sorry, there is no description for this species." value="Citrus Leafminer">Citrus Leafminer</option>
+	<option data-id="reddish-brown heads, and smooth, shiny brown bodies with yellowish legs, ‘shoulders’ and pincers" value="European Earwig">European Earwig</option>
+	<option data-id="Jumping plant lice or psyllids form the family Psyllidae of small plant-feeding insects that tend to be very host-specific, i.e. each plant-louse species only feeds on one plant species or feeds on a few closely related plants" value="Psyllids">Psyllids</option>
+	<option data-id="Sorry, there is no description for this species." value="Slugs">Slugs</option>
+	<option data-id="Velvety green larvae with a few faint yellow stripes" value="Cabbageworms">Cabbageworms</option>
+	<option data-id="Cutworms are the larvae (caterpillars) of several species of night-flying moths in the family Noctuidae. The larvae are called cutworms because they cut down young plants as they feed on stems at or below the soil surface." value="Cutworm">Cutworm</option>
+	</datalist>
+    <p>The description: <span id="result"></span></p>
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    $("#txt_1").on("input",function(){
+        var $options=$("#datalist_1").children();
+        for(var i=0;i<$options.length;i++){
+            if($options.eq(i).val().trim()==$("#txt_1").val().trim()){
+                $("#result").text($options.eq(i).attr("data-id"));
+                break;
+            }else{
+                $("#result").text($("#txt_1").val());
+            }
+        }
+    });
+</script>
+</body>
+</html>
+</div>
+{%endblock content%}

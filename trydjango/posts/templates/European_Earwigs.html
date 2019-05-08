@@ -1,0 +1,183 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>European_Earwigs</title>
+
+    <Link rel="stylesheet" href="/static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">European Earwigs</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 15px">G<br>arden <br>Pests</h2><br><br><br>
+          <a href="#name" style="font:20px Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:20px Georgia;">Damages</a><br><br><br>
+          <a href="#control" style="font:20px Georgia;">How to control and prevent</a>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">European Earwigs</h1>
+      <br>
+            <h2 class="h2">European Earwigs are reddish brown in color, with a flattened and elongate body, and slender, beaded antennae. They are about 12–15 mm long. Spend the day time in cool, dark, inaccessible places such as flowers, fruits, and wood crevices. Active primarily at night, they seek out food ranging from plant matter to small insects. They have well-developed wings but rarely used. They are commonly seen in the gardens.</h2>
+
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="#" target="_blank"><img src="/static/img/7.2 Male European warwig.png" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/7.3 1920001_European_earwig.jpg" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/7.5 earwig1.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">European_Earwigs</li>
+                         <li class="normal">European_Earwigs</li>
+                         <li class="normal">European_Earwigs</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="/static/img/7.2 Male European warwig.png" alt=""/></li>
+                     <li class="normal"><img src="/static/img/7.3 1920001_European_earwig.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/7.5 earwig1.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">Damages</h1>
+          <br>
+          <h2 class="h2"> Cause significant damage to crops, flowers, and fruit orchards when at high numbers. It eats almost any plant materials. Vegetables it feeds upon include cabbage, cauliflower, chard, celery, lettuce, potato, beet, and cucumber among others</h2>
+          <br>
+            <h1 class="h1" id="control">Control and Preventions</h1>
+      <br>
+            <h2 class="h2">Keep the garden clean, remove any debris to reduce the available refuge. Set up a trap by placing dampen paper in a pot turned upside down. Earwigs will crawl into the pot. Then kill them. It is said that Earwigs are attracted by Beer but they die once they taste it. Pour some beer in small jars and lay the jars in the garden. Crumpled up newspapers to trap earwigs. Collect them first thing in the morning and knock them into a bucket of soapy water.</h2>
+      <br>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

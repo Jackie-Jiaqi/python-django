@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+
+{% block content%}
+<style class="text/css">
+    .section1{width:100%;height:900px}
+body {
+
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    background-color: white;
+}
+a
+{
+    text-decoration: none;
+}
+.card
+{
+    z-index: 1;
+    position: relative;
+    width: 18%;
+    height:400px;
+    margin: 0 auto;
+    margin-left:8em;
+    margin-top:150px;
+    float:left;
+    background-color: white;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+
+/*
+
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.2);
+*/
+}
+.card1
+{
+    z-index: 1;
+    position: relative;
+    float:left;
+    width: 18%;
+    height:400px;
+    margin: 0 auto;
+    margin-top:150px;
+    background-color: white;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+
+/*
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.2);
+*/
+}
+.card2
+{
+    z-index: 1;
+    position: relative;
+    width: 18%;
+    height:400px;
+    float:left;
+    margin: 0 auto;
+    margin-top:150px;
+    background-color: white;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+
+/*
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.2);
+*/
+}
+.card3
+{
+    z-index: 1;
+    position: relative;
+    width: 18%;
+    height:400px;
+    margin: 0 auto;
+    float:left;
+    margin-right:8em;
+    margin-top:150px;
+    background-color: white;
+    -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+
+/*
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.2);
+*/
+}
+.card.active
+{
+    height:490px;
+}
+.banner
+{
+    z-index: 2;
+    position: relative;
+    margin-top: -154px;
+    width:100%;
+    height:150px;
+    background-image: url("https://snap-photos.s3.amazonaws.com/img-thumbs/960w/RQ2Z75PQIN.jpg");
+    background-size: cover;
+    border-bottom: solid 1px lightgrey;
+
+
+}
+
+.banner.active
+{
+    height: 0;
+
+}
+
+.photo
+{
+    z-index: 3;
+    position: relative;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    margin: 0 auto;
+    background-image: url("/static/img/about1.jpeg");
+    background-size: cover;
+    background-position: 50% 50%;
+    top:75px;
+    -webkit-box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+    box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+
+}
+
+.photo.active
+{
+    top:-80px;
+}
+.card ul
+{
+    list-style: none;
+    text-align: center;
+    padding-left: 0;
+    margin-top:87px;
+    margin-bottom:30px;
+    font-size: 20px;
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition:    all 0.7s ease-in-out;
+    -o-transition:      all 0.7s ease-in-out;
+    -ms-transition:     all 0.7s ease-in-out;
+}
+
+.photo1
+{
+    z-index: 3;
+    position: relative;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    margin: 0 auto;
+    background-image: url("/static/img/about2.jpeg");
+    background-size: cover;
+    background-position: 50% 50%;
+    top:75px;
+    -webkit-box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+    box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+}
+
+.photo1.active
+{
+    top:-80px;
+}
+.card1 ul
+{
+    list-style: none;
+    text-align: center;
+    padding-left: 0;
+    margin-top:87px;
+    margin-bottom:30px;
+    font-size: 20px;
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition:    all 0.7s ease-in-out;
+    -o-transition:      all 0.7s ease-in-out;
+    -ms-transition:     all 0.7s ease-in-out;
+}
+.photo2
+{
+    z-index: 3;
+    position: relative;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    margin: 0 auto;
+    background-image: url("/static/img/about3.jpeg");
+    background-size: cover;
+    background-position: 50% 50%;
+    top:75px;
+    -webkit-box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+    box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+}
+
+.photo2.active
+{
+    top:-80px;
+}
+.card2 ul
+{
+    list-style: none;
+    text-align: center;
+    padding-left: 0;
+    margin-top:87px;
+    margin-bottom:30px;
+    font-size: 20px;
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition:    all 0.7s ease-in-out;
+    -o-transition:      all 0.7s ease-in-out;
+    -ms-transition:     all 0.7s ease-in-out;
+}
+.photo3
+{
+    z-index: 3;
+    position: relative;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    background-color: white;
+    margin: 0 auto;
+    background-image: url("/static/img/about4.jpeg");
+    background-size: cover;
+    background-position: 50% 50%;
+    top:75px;
+    -webkit-box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+    -moz-box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+    box-shadow: inset 0px 0px 5px 1px rgba(0,0,0,0.3);
+}
+
+.photo3.active
+{
+    top:-80px;
+}
+.card3 ul
+{
+    list-style: none;
+    text-align: center;
+    padding-left: 0;
+    margin-top:87px;
+    margin-bottom:30px;
+    font-size: 20px;
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition:    all 0.7s ease-in-out;
+    -o-transition:      all 0.7s ease-in-out;
+    -ms-transition:     all 0.7s ease-in-out;
+}
+
+
+
+
+</style>
+
+<Link rel="stylesheet" href="/static/css/Home.css">
+<section class="section1">
+    <h1 style="text-align:center;font-size:48px;margin-top:2em;">About us</h1>
+<body class="row">
+        <div class="card col-sm-3">
+            <div class="photo"></div>
+            <div class="banner"></div>
+            <ul>
+                <li><b>Jackie</b></li>
+                <li>Web Developer</li>
+                <li>Python</li>
+
+            </ul>
+
+          </div>
+        <div class="col-sm-3" style="width:5%;"></div>
+<div class="card1 col-sm-3">
+            <div class="photo1"></div>
+            <div class="banner"></div>
+            <ul>
+                <li><b>Tim</b></li>
+                <li>Web Developer</li>
+                <li>Css, Html, Js</li>
+
+            </ul>
+
+          </div>
+        <div class="col-sm-3" style="width:5%;"></div>
+<div class="card2 col-sm-3">
+            <div class="photo2"></div>
+            <div class="banner"></div>
+            <ul>
+                <li><b>Stella</b></li>
+                <li>Designer</li>
+                <li>Photoshop</li>
+            </ul>
+
+          </div>
+        <div class="col-sm-3" style="width:5%;"></div>
+<div class="card3 col-sm-3">
+            <div class="photo3"></div>
+            <div class="banner"></div>
+            <ul>
+                <li><b>Mahesh</b></li>
+                <li>Security</li>
+                <li>Testing</li>
+            </ul>
+
+          </div>
+    </body>
+
+</section>
+{%endblock content%}

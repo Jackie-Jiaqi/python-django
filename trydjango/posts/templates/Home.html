@@ -1,0 +1,327 @@
+{%extends "base.html"%}
+{%block content%}
+
+
+    <meta charset="UTF-8">
+    <title>Garden Pests</title>
+
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+
+  <Link rel="stylesheet" href="/static/css/Home.css">
+
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+
+     <style><% include ./styles.css %>
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    opacity: 0.75;
+    margin: 0 15px;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+@-webkit-keyframes fadein{
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes fadein{
+    100%{
+        opacity: 1;
+    }
+}
+
+
+
+@media (max-width: 1000px){
+	header{
+		padding: 20px 50px;
+	}
+}
+
+
+@media (max-width: 700px){
+	header{
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		    -ms-flex-direction: column;
+		        flex-direction: column;
+	}
+
+	header h2{
+		margin-bottom: 15px;
+	}
+}
+
+
+.hero{
+    position: relative;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    color: white;
+}
+.hero .background-image{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    z-index: -1;
+    background-color: #80a3db;
+    -webkit-animation: 15s change 2s forwards;
+            animation: 15s change 2s forwards;
+    -webkit-animation-iteration-count:infinite;
+            animation-iteration-count:infinite;
+}
+
+@keyframes change{
+    0%{
+    background-image: url(/static/img/slide1.jpg);
+    }
+    25%{
+       background-image: url(/static/img/slide3.jpg);
+    }
+    50%{
+        background-image: url(/static/img/slide6.jpg);
+}
+.hero h1{
+    font: bold 60px "Open Sans", sans-serif;
+    margin-bottom: 40px;
+    color: white;
+    font-size: 48px;
+}
+.hero h3{
+    font: normal 28px "Open Sans", sans-serif;
+    margin-bottom: 40px;
+    color: white;
+    font-size:24px;
+}
+
+.hero-content-area{
+    opacity: 0;
+    margin-top: 100px;
+    -webkit-animation: 1s slidefade 1s forwards;
+            animation: 1s slidefade 1s forwards;
+}
+@-webkit-keyframes slidefade{
+    100%{
+        opacity: 1;
+        margin: 0;
+    }
+}
+@keyframes slidefade{
+    100%{
+        opacity: 1;
+        margin: 0;
+    }
+}
+
+
+.grid{
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+}
+
+hr{
+    width: 100%;
+    height: 2px;
+    background-color: #3f51b5;
+    border: 0;
+    margin-bottom: 50px;
+}
+
+
+
+@media (max-width: 900px){
+
+	.hero{
+		min-height: 600px;
+	}
+	.hero h1{
+		font-size: 48px;
+
+	}
+
+	.hero h3{
+		font-size: 24px;
+
+	}
+
+
+}
+
+
+
+
+
+
+
+
+
+
+   </style>
+
+
+
+
+
+    <body>
+            <section class="hero">
+            <div class="background-image" style="background-image: url(/static/img/slide1.jpg)"></div>
+                <div class="hero-content-area">
+                  <h5 style="height:250px;"></h5>
+                <h1 style="font-size:68px;">Welcome to Garden Pests</h1>
+                    <h3 style="font-size:36px;height:350px;">The best solution for your backyard issue</h3>
+                </div>
+            <div class="arrow bounce" >
+                  <h3 style="font-size：36px;">Get Ready to Explore Our Functions</h3>
+				  <a class= "smoothScroll" href = "#first"><i class="fa fa-angle-down fa-5x" aria-hidden="true"></i></a>
+				 </div>
+            </section>
+  <section class="section">
+    <div class="first-text-section" id="first" >
+      <div class="row">
+        <div class="col-md-4">
+          <div class="first-text-1">
+              <h class="h2">Identify Plant Diseases</h>
+              <p style="text-align:justify; font-size: 20px; font-family: Gabriola; ">Take a Picture of your plant and Upload them to identify the disease.</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Gabriola;">Browse the Bugs Picture Gallery page to learn more information about common bugs in Melbourne backyard.</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Gabriola;">Browse Leaves Picture Gallery page to see which pests might affected these plants.</p>
+
+          </div>
+        </div>
+         <div class="col-md-4">
+          <div class="first-text-1">
+              <h class="h2">Learn how to control and prevent</h>
+              <p style="text-align:justify; font-size: 20px; font-family: Gabriola;">Browse Control and Prevent page to learn more about the environmentally friendly approach to deal with these pests.</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Gabriola;">Learn how to isolate your pet from these pests</p>
+          </div>
+         </div>
+          <div class="col-md-4">
+          <div class="first-text-1">
+              <h class="h2">Learn more about the greening afforestation of city.</h>
+          </div></div>
+        </div>
+      </div>
+  </section>
+  <br>
+  <section class="section">
+
+        <div class="bootstrap-function">
+          <div class="image-text">
+            <div class="function-intro1">
+              <div class="function-intro2">
+                <div class="function-img0"><p style="color:white;text-align:center;">Backyard of Melbourne</p><a href="https://127.0.0.1:8000/treemap" style="color:white">Learn More>></a> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="bootstrap-function">
+            <div class="image-text">
+              <div class="function-img1"><p>Bugs Picture Gallery</p><a href="http://127.0.0.1:8000/bug_pic_gallery">Learn More>></a> </div>
+            </div>
+          </div>
+          <div class="bootstrap-function">
+            <div class="image-text">
+              <div class="function-img2" style="color:white"><p>Matching Leaves Photo</p><a href="http://127.0.0.1:8000/create" style="color:white">Learn More>></a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="bootstrap-function">
+            <div class="image-text">
+              <div class="function-img3"><p>Leaves Picture Gallery</p><a href="http://127.0.0.1:8000/leaf_pic_gallery">Learn More>></a></div>
+            </div>
+          </div>
+          <div class="bootstrap-function">
+            <div class="image-text">
+              <div class="function-img4" style="color:white"><p>Disease Prevention</p><a href="http://127.0.0.1:8000/prevent" style="color:white">Learn More>></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="trans1">
+    <div class="second-text-section">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="first-text-1">
+              <h class="h2">Bug picture gallery</h><br>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">lean more about pest information</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">View multi-angle photos of pests</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">Learn plants that pest like to eat</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">Lean about why they are harmful to your garden</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="first-text-1">
+              <h class="h2">Leaf picture gallery</h><br>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">The most common garden plants in Melbourne are listed here</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">View photos of leaves</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">Learn information of plants</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">View related pests</p>
+          </div>
+      </div>
+        <div class="col-sm-4">
+          <div class="first-text-1">
+              <h class="h2">Leaf Matching System</h><br>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">Upload leaf photos to determine your plants health</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">To determine whether plants are sick or not</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">Identification of disease types</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">Learn more about the common disease</p>
+          </div>
+        </div>
+
+      </div>
+        <div class="row">
+            <div class="col-sm-4">
+          <div class="first-text-1">
+              <h class="h2">Control and prevent</h><br>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">learns how to protect you, your plants and your family from pests.</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">Learn about environmentally friendly solutions to control pests</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">learn how to protect pets from pest hazards</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">seek assistance from professional organizations</p>
+          </div>
+        </div>
+      <div class="col-sm-4">
+          <div class="first-text-1">
+              <h class="h2">Backyard of Melbourne</h><br>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">looks at greening afforestation of city to see the health of each tree.</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">Browse Melbourne map</p>
+              <p style="text-align:justify; font-size: 20px; font-family: Georgia;">Click the tree icon for more information</p>
+          </div>
+        </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+  </section>
+<br><br><br>
+
+<script src="/static/js/slide.js"></script>
+{%endblock content%}

@@ -1,0 +1,184 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>Slugs</title>
+
+    <Link rel="stylesheet" href="/static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">Slugs</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 15px">G<br>arden <br>Pests</h2><br><br><br>
+          <a href="#name" style="font:20px Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:20px Georgia;">Infestations</a><br><br><br>
+          <a href="#control" style="font:20px Georgia;">How to control and prevent</a>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">Slugs</h1>
+      <br>
+            <h2 class="h2">Slugs are introduced to Australia and can pose a huge threat to garden plants. They damage seedlings, leaves, fruit, underground tubers and plant seeds. It is found most likely in moist and humid climates. They avoid sun and are most active at night. Most garden slugs are gray to dark brown and about one-inch long.</h2>
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="#" target="_blank"><img src="/static/img/9.1 getting-rid-of-slugs_full_width.jpg" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/9.2 slugs-eggs-soil_full_width.jpg" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/9.3 slugs.jpg.860x0_q70_crop-scale.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">slugs</li>
+                         <li class="normal">slug egg</li>
+                         <li class="normal">slug</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="/static/img/9.1 getting-rid-of-slugs_full_width.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/9.2 slugs-eggs-soil_full_width.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/9.3 slugs.jpg.860x0_q70_crop-scale.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">Infestations</h1>
+          <br>
+          <h2 class="h2">Big holes in leaves. Completely destroyed seedlings, especially veggies and herbs. Shiny silver trails</h2>
+          <br>
+            <h1 class="h1" id="control">Control and Preventions</h1>
+      <br>
+            <h2 class="h2">Handpick and submerge them into soapy water. Use organic sprays made of Quassia amara or other plants that deter snails and slugs, such as garlic and wormwood. Spray a coffee mix in a ratio of 1:5 with water to the plants and mulch the area where slugs usually appear. The caffeine in the coffee kills these pests. Place a bowl of beer in a strategic location in your garden. Beer attracts slugs, making them crawl into the bowl and drown. Build barriers with suitable materials like crushed eggshells, wood ash, sawdust, lime and wood shavings. Copper repels slugs. Use copper tape as individual collars around pots or raised garden beds.</h2>
+      <br>
+            <h1 class="h1">Non-Chemical Control</h1>
+          <h2 class="h2">Since all of our pest snails and slugs are introduced to Australia, the range of native biological controls is limited. Predators include some birds, including magpies, kookaburras, mudlarks and starlings. The appetite of birds for snails tends to vary greatly from area to area. Other predators include blue tongue lizards, rats, centipedes, frogs, predatory beetles, predatory snails and slugs. Chickens or ducks, particularly Khaki Campbell or Indian Runner, can provide effective, long-term control in orchards. Poultry are too destructive in gardens to be given unlimited access but in small mobile cage systems rotated over garden beds, they will clean up slugs and snails, fruit fly, 28-spotted ladybeetle and other pests that are attempting to hide out in the garden.</h2>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

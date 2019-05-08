@@ -1,0 +1,191 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>Cabbage-worms</title>
+
+    <Link rel="stylesheet" href="/static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">Cabbage worm</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 15px">G<br>arden <br>Pests</h2><br><br><br>
+          <a href="#name" style="font:20px Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:20px Georgia;">Damages</a><br><br><br>
+          <a href="#control" style="font:20px Georgia;">How to control and prevent</a>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">Cabbage worm</h1>
+      <br>
+            <h2 class="h2">Cabbage worms are velvety green larvae. They have a few faint yellow stripes. Cabbage worms become cabbage white butterflies, which are mostly white with a few black markings. They lay eggs on the undersides of leaves.</h2>
+
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="#" target="_blank"><img src="/static/img/10.1 get-rid-of-cabbage-worms.jpg" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/10.2 CABW1.jpg" alt=""/></a></li>
+                         <li><a href="#" target="_blank"><img src="/static/img/10.3 small-cabbage-white-caterpillars.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">Cabbage_worms</li>
+                         <li class="normal">Cabbage_worms</li>
+                         <li class="normal">Cabbage_worms</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="/static/img/10.1 get-rid-of-cabbage-worms.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/10.2 CABW1.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/10.3 small-cabbage-white-caterpillars.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">Damages </h1>
+          <br>
+          <h2 class="h2">They eat away the bases of cabbage, cauliflower, or the heads of broccoli without being noticed.
+            They feed on foliage, and eventually they leave plants only with stems and large veins.
+            Their fecal matter can also stain and contaminate the produce.</h2>
+          <br>
+            <h1 class="h1" id="control">Control and Preventions</h1>
+      <br>
+            <h2 class="h2">Manually remove the eggs if you have few plants
+            Dampen the cabbage leaves and sprinkle them with cornmeal, the caterpillars will eat the meal, swell, and die.
+            Attract small insect-eating birds by providing safe nest sites and a constant supply of water.
+            Use fabric designed to cover vegetables such as a Vege Net or make innovative use of mosquito netting or old window screens. This will prevent moths from laying their eggs.
+            Plantings repellent like strong smelling herbs make the area undesirable to the pests.</h2>
+      <br>
+            <h1 class="h1">Non-Chemical Control</h1>
+          <h2 class="h2">Plant garlic, allium, thyme, tomatoes, onions, sage, borage, nasturtium, tansy, and rosemary near the affected plants, as they are known to deter cabbage worms. Plant flowering plants and herbs nearby to attract natural predators.There are plenty of other insects you can attract to the garden that attack these worms, such as spiders, ground beetles, yellowjackets, and wasps. The braconid wasp will prey on these caterpillars all day long.Their predators include the house sparrow, skylark, and goldfinch skylark, so if you can attract those birds to your yard, you can enlist their help.</h2>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

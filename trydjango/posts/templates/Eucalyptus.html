@@ -1,0 +1,182 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>Eucalyptus</title>
+
+    <Link rel="stylesheet" href="/static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">Eucalyptus</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 0.1em">G<br>arden Pests</h2><br><br><br>
+          <a href="#name" style="font:1.5em Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:1.5em Georgia;">How to maintain</a><br><br><br>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">Eucalyptus</h1>
+      <br>
+            <h2 class="h2">Eucalyptus is a hearty, fragrant plant that is often preserved for use in floral arrangements, wreaths, and decorations. After collecting the eucalyptus branches you wish to preserve, place them in a mixture of water and vegetable glycerin. Allow the branches to absorb the solution for a few weeks, then remove them and hang them to dry. After that, your eucalyptus branches will be ready for use or display.</h2>
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="/static/img/leaves/eucalyptus1.png" target="_blank"><img src="/static/img/leaves/eucalyptus1.png" alt=""/></a></li>
+                         <li><a href="/static/img/leaves/eucalyptus2.jpg" target="_blank"><img src="/static/img/leaves/eucalyptus2.jpg" alt=""/></a></li>
+                         <li><a href="/static/img/leaves/eucalyptus3.jpg" target="_blank"><img src="/static/img/leaves/eucalyptus3.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">Eucalyptus</li>
+                         <li class="normal">Eucalyptus</li>
+                         <li class="normal">Eucalyptus</li>
+                         <li class="normal">Eucalyptus</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="/static/img/leaves/eucalyptus1.png" alt=""/></li>
+                     <li class="normal"><img src="/static/img/leaves/eucalyptus2.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/leaves/eucalyptus3.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">How to maintain</h1>
+          <br>
+          <h2 class="h2">eucalyptus trees require full sun; however, some species, like E. neglecta and E. crenulata, will tolerate areas with semi-shade. They also adapt well to a wide range of soils, from hot, dry sites to slightly wet as long as the area is well draining. Plant eucalyptus in mid to late spring or fall, depending on your location and climate. Be sure to water the tree both before and after planting. Dig the hole slightly larger than the root ball, and take care with the tree’s roots during planting, as they do not like being disturbed. There’s no need to spread out the roots while planting, as this could damage their sensitive root system. Back fill the area and lightly tamp the soil to remove any air pockets.
+Read more at Gardening Know How: Eucalyptus Tree Care – Tips On Growing Eucalyptus https://www.gardeningknowhow.com/ornamental/trees/eucalyptus/tips-growing-eucalyptus.htm</h2>
+          <br>
+          <h2 class="h2">Eucalyptus tree care is not difficult, as this type of tree usually maintains itself reasonably well. Once established, eucalyptus trees should not require too much watering, with exception for those growing in containers. Allow these to dry out somewhat between waterings. Additional watering may be necessary during periods of excessive drought, however. As for fertilizer, much of the eucalyptus tree information recommends against the use of fertilizer, as they do not appreciate phosphorus. Potted eucalyptus may require an occasional slow-release fertilizer (low in phosphorus). In addition, eucalyptus tree care includes annual pruning (in summer) to control top growth and their overall height. Eucalyptus trees are also known to produce heavy litter in the fall, shedding bark, leaves, and branches. As its shred-like bark is considered flammable, keeping this debris cleaned up is preferable. If desired, you can collect some seed once it falls, and then plant it in another area of your yard or in a container.
+<br>
+Read more at Gardening Know How: Eucalyptus Tree Care – Tips On Growing Eucalyptus https://www.gardeningknowhow.com/ornamental/trees/eucalyptus/tips-growing-eucalyptus.htm</h2>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

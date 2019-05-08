@@ -1,0 +1,197 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>Illawarra</title>
+
+    <Link rel="stylesheet" href="/static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">Illawarra</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 0.1em">G<br>arden Pests</h2><br><br><br>
+          <a href="#name" style="font:1.5em Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:1.5em Georgia;">How to identify</a><br><br><br>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">Illawarra</h1>
+      <br>
+            <h2 class="h2">It grows up to 35 m in the wild but only about 10m in gardens. The bright red bell-shaped flowers grow in clusters at the end of branches, often after the leaves have dropped, giving the plant a distinctive look. It is a deciduous tree that is often found growing alongside the Red Cedar in lowland rainforest habitat.
+
+A few months after the jettisoning of the leaves, the tree produces masses of bell-shaped vivid scarlet flowers. They do not always flower annually and put on their best display maybe only once every five years, especially after a hot dry summer. In between these times, they may only produce one or two branches of flowers on the whole tree.
+
+It produces a tough leathery dark-brown seed pod, containing rows of corn-like seeds that are surrounded by hairs that will irritate the skin and nose and throat if inhaled. They are toxic to many native animals and birds.
+
+A great place to spot a flame tree is from one of the lookouts around the Springbrook area in south-east Queensland during summer. As you look across the valley, you can easily pick a brilliant red splotch from the deep green rainforest surrounding it.
+
+These trees support and feed a wide range of native animals. The branches offer a safe roosting place for canopy dwelling birds such as the White Headed Pigeon.
+
+Flame tree leaves also feed the caterpillars of some native butterflies, including the Pencilled Blue, Helenita Blue, Common Aeroplane and Tailed Emperor Butterflies.
+
+In turn, insectivorous birds feed off these caterpillars. Planting a few flame trees in your garden will provide habitat for these animals.</h2>
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="/static/img/leaves/Illawarra1.jpg" target="_blank"><img src="/static/img/leaves/Illawarra1.jpg" alt=""/></a></li>
+                         <li><a href="/static/img/leaves/Illawarra2.jpg" target="_blank"><img src="/static/img/leaves/Illawarra2.jpg" alt=""/></a></li>
+                         <li><a href="/static/img/leaves/Illawarra3.jpg" target="_blank"><img src="/static/img/leaves/Illawarra3.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">Illawarra</li>
+                         <li class="normal">Illawarra</li>
+                         <li class="normal">Illawarra</li>
+                         <li class="normal">Illawarra</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="/static/img/leaves/Illawarra1.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/leaves/Illawarra2.jpg" alt=""/></li>
+                     <li class="normal"><img src="/static/img/leaves/Illawarra3.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">How to identify </h1>
+          <br>
+          <h2 class="h2">A small to medium sized tree which can fire up to 40 metres in height, the flame tree is Queensland’s biblical incarnation of the burning bush. This striking looking tree has bell-shaped, scarlet coloured flowers, which form in clusters at the end of its branches.
+
+At the ends of these flowers lie large leather pods which host corn-like seeds. These thin seeds contain a nutritious foodstuff within, which were eaten by Aborigines after toasting. The seeds can also be collected to propagate this wonderful specimen, although if choosing to do so, it’s best to use gloves due to the irritant hairs they contain.
+
+When in bloom, Brachychiton acerifolius is arguably the most spectacular of Australia’s native trees. Typically deciduous year-round, it flowers in late spring, therefore anyone travelling in north-eastern Australia at present could see this tree in full-fire. Keep in mind this feat takes 5-8 years to perform from seedling, so it’s a well-prepared show.
+
+Although entirely native to the tropical regions of Australia’s east coast, the flame tree is now accustomed to temperate climates, as it’s cultivated the world over for its remarkable beauty. However, its full-growth potential is only reached in its original, warmer climate of north-eastern Australia, where you may be fortunate enough to encounter a fiery whopper.
+
+Besides international plant lovers, Brachychiton acerifolius attracts insects, birds, butterflies, and the many Australian’s who flock in droves to gaze upon the fiery foliage of this unique and wonderful specimen.</h2>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

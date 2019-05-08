@@ -1,0 +1,191 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>Moreton</title>
+
+    <Link rel="stylesheet" href="../../static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">Moreton</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 0.1em">G<br>arden <br>Pests</h2><br><br><br>
+          <a href="#name" style="font:1.5em Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:1.5em Georgia;">How to identify</a><br><br><br>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">Moreton Bay Fig</h1>
+      <br>
+            <h2 class="h2">A larger native from the Moreton bay region, this tree is famous for its large leaves and canTrees Melbourne grow as high as 60 metres. They are rainforest thus can grow well in this part and are not partial to frost.
+            Moreton Bay Figs grow up to 50 metres tall in some climates. They are usually branched heavily in the crowns and consist of spreading masses of foliage.
+
+They occur naturally on the eastern coast of Australia from Narooma to Brisbane and can also be found in Papua New Guinea. They do not occur naturally in sandstone so before Europeans arrived, there were none in the Centennial Parklands area.
+
+Moreton Bay figs are identifiable by their large buttresses and purple fruits. They can grow in a variety of sites and occur in sub-tropical, warm-temperate and dry rainforests. They are commonly planted as avenue and shade trees in parks and around farms.
+
+In rainforests Moreton Bay figs often begin life from seeds placed by birds in the bark or branch forks of other trees, their aerial roots gradually surround and strangle their host.</h2>
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="../../static/img/Moreton1.jpg" target="_blank"><img src="../../static/img/Moreton1.jpg" alt=""/></a></li>
+                         <li><a href="../../static/img/Moreton2.jpg" target="_blank"><img src="../../static/img/Moreton2.jpg" alt=""/></a></li>
+                         <li><a href="../../static/img/Moreton3.jpg" target="_blank"><img src="../../static/img/Moreton3.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">Moreton Bay Fig</li>
+                         <li class="normal">Moreton Bay Fig</li>
+                         <li class="normal">Moreton Bay Fig</li>
+                         <li class="normal">Moreton Bay Fig</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="../../static/img/Moreton1.jpg" alt=""/></li>
+                     <li class="normal"><img src="../../static/img/Moreton2.jpg" alt=""/></li>
+                     <li class="normal"><img src="../../static/img/Moreton3.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">How to identify </h1>
+          <br>
+          <h2 class="h2">Moore Park is well-known for the historic avenue of figs planted in the 1860s by Charles Moore, Director of the Royal Botanic Garden. Fine examples of Port Jackson and Moreton Bay figs run the length of the Park on Anzac Parade.
+
+There are three giant Moreton Bay figs in Queens Park that are estimated to be older than the Park. These three examples are the biggest in the Parklands.
+
+Another striking example of a Moreton Bay fig can be found in Musgrave Avenue. Known as the “mighty buttress tree”, this tree has thick buttress roots as tall as the average man.
+
+The “Dragon Tree” is an enormous Moreton Bay fig on Lang Road slopes, west of Jervois Road. Its branches and substantial root structure twist and turn creating mystical, magical, animal shapes.</h2>
+          <br>
+
+</div>
+</div>
+
+{%endblock content%}

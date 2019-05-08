@@ -1,0 +1,210 @@
+{%extends "base.html"%}
+{%block content%}
+<div class="col-sm-6 col-sm-offset-3">
+    <br/><br/><br/>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>bugs picture gallery</title>
+
+    <link rel="stylesheet">
+
+
+      <style>
+      .body2 {
+        box-sizing: border-box;
+        width: 100%;
+        font-family: Helvetica,"Palatino Linotype", "Book Antiqua", Palatino, serif;
+        color: white;
+      }
+
+
+.img2{
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.li2 {
+  display: block;
+  width: 200px;
+  height: 200px;
+  float: right;
+  margin: 15px;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+.li2:hover figcaption {
+  top: 0;
+}
+
+.figcaption2 {
+  transition: top 0.4s;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 13px 27px;
+  top: 155px;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  font-weight: bold;
+  font-size: 100%;
+}
+
+.ul2{
+	height: 1000px;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.box{
+  width: 100%;
+  position: absolute;
+  text-align: center;
+}
+
+.box li{
+  float: left;
+  width: 200px;
+  height: 200px;
+  margin-right: -10px;
+}
+
+        h1{
+          font-size: 60px;
+          text-align: center;
+          color: #fff;
+        }
+
+    </style>
+
+</head>
+<body class="body2">
+<div class="box">
+  <h1>Bugs Picture Gallery</h1>
+  <br class="ul2" id="results">
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/1.1 Yellow_Aphids.jpg" />
+      <figcaption class="figcaption2" >
+        Yellow_Aphids
+      </br></br></br>
+        <a href="http://127.0.0.1:8000/yellowaphids">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/2.1 Cabbage-Whitefly.jpg" />
+      <figcaption class="figcaption2">
+        Cabbage Whitefly
+        </br></br></br>
+        <a href="http://127.0.0.1:8000/cabbagewhitefly">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/4.1 Cabbage-Moth.jpg" />
+      <figcaption class="figcaption2">
+        Cabbage Moth
+        </br></br></br>
+        <a href="http://127.0.0.1:8000/cabbagemoth">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/10.1 get-rid-of-cabbage-worms.jpg" />
+      <figcaption class="figcaption2">
+        Cabbage Worms
+        </br></br></br>
+        <a href="http://127.0.0.1:8000/cabbageworms">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/6.1 Citrus-Leafminer-silver-trail.jpg" />
+      <figcaption class="figcaption2">
+        Citrus Leafminer
+        </br></br></br>
+        <a href="http://127.0.0.1:8000/citrusleafminer">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+  </br>
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/11.5 Cutworm3_0.jpg" />
+      <figcaption class="figcaption2">
+        Cutworm
+        </br></br></br>
+        <a href="http://127.0.0.1:8000/cutworm">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/7.3 1920001_European_earwig.jpg" />
+      <figcaption class="figcaption2">
+        European Earwigs
+        </br></br></br>
+        <a href="http://127.0.0.1:8000/europeanearwigs">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/5.1 japanese-beetle-damage_1_full_width.jpg" />
+      <figcaption class="figcaption2">
+        Japanese-beetle
+        </br></br></br>
+        <a href="http://127.0.0.1:8000/japanesebeetle">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/3.1 Mealybugs.jpg" />
+      <figcaption class="figcaption2">
+        Mealybugs
+        </br></br></br>
+        <a href="http://127.0.0.1:8000/mealybugs">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/8.1 Psyllids.jpg" />
+      <figcaption class="figcaption2">
+        Psyllids
+        </br></br></br>
+        <a href="http://127.0.0.1:8000/psyllids">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+  <li class="li2">
+    <figure>
+      <img class="img2" src="/static/img/9.1 getting-rid-of-slugs_full_width.jpg" />
+      <figcaption class="figcaption2">
+        Slugs
+        </br></br></br>
+        <a href="http://127.0.0.1:8000/slugs">View More -></a>
+      </figcaption>
+    </figure>
+  </li>
+
+</ul>
+</div>
+</body>
+</html>
+</div>
+{%endblock content%}

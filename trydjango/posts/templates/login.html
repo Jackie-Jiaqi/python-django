@@ -1,0 +1,81 @@
+{% load staticfiles %}
+
+<html class="no-js" lang="{{ LANGUAGE_CODE|default:"en-gb" }}">
+<head>
+    <meta charset="utf-8" />
+    <title>GardenPests{% block titletag %}{% endblock %}</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="{% static 'js/modernizr-2.6.2.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
+
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'css/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/vendor/jquery.tagit.css' %}">
+        <link rel="stylesheet" href="{% static 'css/core.css' %}" type="text/css" />
+    {% endblock %}
+</head>
+
+
+<body id="IDD">
+<div class="wrapper">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css" />
+    {% block furniture %}
+        <div class="content-wrapper">
+            {% if messages or form.errors %}
+                <div style="font-size: 16px">
+                    <ul>
+                        {% if form.errors %}
+                            <li class="error">Your ID and password didn't match. Please try again.</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <form method="post" >
+                {% block login_form %}
+                    {% csrf_token %}
+                    {% url 'index' as home_url %}
+                    <input type="hidden" name="next" value="{{ next|default:home_url }}" />
+                    <h1>{% block branding_login %}Sign in to GardenPests{% endblock %}</h1>
+                    <ul class="fields">
+
+                        {% block fields %}
+                            <li class="full">
+                                <div class="field iconfield">
+                                    {{ form.username.label_tag }}
+                                    <div class="input icon-user">
+                                        {{ form.username }}
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="full">
+                                <div class="field iconfield">
+                                    {{ form.password.label_tag }}
+                                    <div class="input icon-password">
+                                        {{ form.password }}
+                                    </div>
+                                </div>
+                                <p class="help">Forgotten it?</p>
+                            </li>
+                            <li class="checkbox">
+                                <div class="field">
+                                    <label><input type="checkbox" />Remember me</label>
+                                </div>
+                            </li>
+                        {% endblock %}
+
+                        <li class="submit">
+                            {% block submit_buttons %}
+                                <button type="submit" class="button button-longrunning" tabindex="3" data-clicked-text="Signing in…"><span class="icon icon-spinner"></span><em>Sign in</em></button>
+                            {% endblock %}
+                        </li>
+                    </ul>
+                {% endblock %}
+            </form>
+        </div>
+    {% endblock %}
+</div>
+</body>
+</html>
+

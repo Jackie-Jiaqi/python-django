@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,300italic,400italic,600italic,600' rel='stylesheet' type='text/css'>
+  <link rel="Stylesheet" href="css/master.css" type="text/css" />
+
+  <link rel="Stylesheet" href="https://ianlunn.github.io/Hover/css/hover.css" type="text/css" />
+
+  <link rel="Stylesheet" href='https://fonts.googleapis.com/css?family=Muli' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+<style type="text/css">
+    html,
+body { margin:0px; padding:0px; }
+header {
+    z-index: 10;
+}
+.header-banner {
+    background-color: #333;
+    background-image: url('/static/img/2.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 300px;
+}
+
+header h1 {
+    background-color: rgba(18,72,120, 0.8);
+    color: #fff;
+    padding: 0 1rem;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+}
+
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+nav {
+    width: 100%;
+    height: 60px;
+    background: #ecf0f1;
+    postion: fixed;
+    z-index: 10;
+    opacity: 0.8;
+    filter:alpha(opacity=80);
+}
+
+nav div {
+    color: white;
+    font-size: 2rem;
+    line-height: 60px;
+    position: absolute;
+    top: 0;
+    left: 2%;
+    visibility: hidden;
+}
+.visible-title {
+    visibility: visible;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0 2% auto 0;
+    padding-left: 0;
+    text-align: right;
+    max-width: 100%;
+}
+nav ul li {
+    display: inline-block;
+    line-height: 60px;
+    margin-left: 10px;
+}
+nav ul li a {
+    text-decoration: none;
+    color: #252525;
+    font-size: 16px;
+}
+
+.logo{
+  margin-left: 10px;
+  margin-right: 20px;
+  height:20px;
+  width:150px;
+}
+
+.bootstrap-footer1{
+  padding: 5em 6em;
+  background: #ffffff;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.bootstrap-footer2 {
+  padding: 4em 0;
+  background: #C2D0D6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+a{
+  font-family: Georgia;
+}
+
+.section h3{
+  font-weight: normal;
+  font: 24px Georgia;
+  text-transform: uppercase;
+  color: #8EBCE8;
+  padding-top:60px;
+}
+
+.section a{
+  display: block;
+  font: 18px Georgia;
+  color: #324B70;
+  padding-top: 20px;
+}
+</style>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script>
+  $(window).scroll(function(){
+    if ($(window).scrollTop() >= 0) {
+        $('nav').addClass('fixed-header');
+        $('nav div').addClass('visible-title');
+    }
+    else {
+        $('nav').removeClass('fixed-header');
+        $('nav div').removeClass('visible-title');
+    }
+});
+</script>
+
+  <header>
+    <nav>
+      <div class="site-title"><img class="logo" src="/static/img/project-logo-big.png"></div>
+      <ul>
+      <li><a href="http://127.0.0.1:8000/Home">Home / </a></li>
+      <li><a href="http://127.0.0.1:8000/bug_pic_gallery">Search Bugs / </a></li>
+      <li><a href="http://127.0.0.1:8000/leaf_pic_gallery">Search Leaves / </a></li>
+      <li><a href="http://127.0.0.1:8000/prevent">Disease Prevention / </a></li>
+      <li>
+        <a href="http://127.0.0.1:8000/create">Upload Image / </a>
+      </li>
+      <li><a href="http://127.0.0.1:8000/about">About Us</a></li>
+        </ul>
+    </nav>
+  </header>
+
+
+  {% block content %}
+  {% endblock content %}
+
+  <!--<div class="bootstrap-footer1">-->
+      <!--<div class="container">-->
+        <!--<div class="row">-->
+          <!--<div class="col-sm-4 text-center">-->
+            <!--<div class="section">-->
+            <!--<h3>Navigation</h3>-->
+            <!--<a>Home</a><br>-->
+            <!--<a>Picture Gallery</a><br>-->
+            <!--<a>Picture Matching</a><br>-->
+            <!--<a>About Us</a>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-sm-4 text-center">-->
+            <!--<div class="section">-->
+            <!--<h3>Add-ons</h3>-->
+            <!--<a>Visit our Database</a><br>-->
+            <!--<a>Join Us</a>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-sm-4 text-center">-->
+            <!--<div class="section">-->
+            <!--<h3>Policy</h3>-->
+            <!--<a>Our Policy</a>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<footer>
+    <div class="bootstrap-footer2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 copyright text-center">
+          <p>2018 All Rights Reserved.<br>Designed and Developed by mashmallows.</p>
+        </div>
+      </div>
+    </div>
+    </div>
+  </footer>
+</body>
+</html>

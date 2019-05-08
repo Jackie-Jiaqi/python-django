@@ -1,0 +1,189 @@
+{%extends "base.html"%}
+{%block content%}
+
+    <title>Wattle</title>
+
+    <Link rel="stylesheet" href="../../static/css/bug_detail.css">
+ <script>
+	var atuokey = false;
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+function loadFunction(func){
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function(){
+            oldonload();
+            func();
+        }
+    }
+}
+
+function moveElement(elementId, final_x, final_y, interval){
+    node = $(elementId);
+
+    if(node.movement){
+        clearTimeout(node.movement);
+    }
+    if(!node.style.left){
+        node.style.left = "0px";
+    }
+    if(!node.style.top){
+        node.style.top = "0px";
+    }
+
+    var xpos = parseInt(node.style.left);
+    var ypos = parseInt(node.style.top);
+    if(xpos == final_x && ypos == final_y){
+        return true;
+    }
+    if(xpos < final_x){
+        var dis = Math.ceil((final_x - xpos)/10)
+        xpos += dis;
+    }
+    if(xpos > final_x){
+        var dis = Math.ceil((xpos-final_x)/10);
+        xpos -= dis;
+    }
+    if(ypos < final_y){
+        var dis = Math.ceil((final_y - ypos)/10);
+        ypos += dis;
+    }
+    if(ypos > final_y){
+        var dis = Math.ceil((ypos - final_y) /10);
+        ypos -= dis;
+    }
+
+    node.style.left = xpos + "px";
+    node.style.top = ypos + "px";
+
+    var repeat = "moveElement('"+elementId+"',"+final_x+","+final_y+","+interval+")";
+    node.movement = setInterval(repeat,interval);
+}
+
+function classNormal(picFoucusId, picTextId){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    for(var i = 0; i < 3; i++ ){
+        focusNodes[i].className = "normal";
+        textNodes[i].className = "normal";
+    }
+}
+
+function classCurrent(picFoucusId, picTextId, n){
+    var focusNodes = $(picFoucusId).getElementsByTagName("li");
+    var textNodes = $(picTextId).getElementsByTagName("li");
+    focusNodes[n].className = "current";
+    textNodes[n].className = "current";
+}
+
+function picSwitch(){
+    if(!$("picWhole")) return false;
+    $("picWhole").onmouseover = function(){atuokey = true};
+    $("picWhole").onmouseout = function(){atuokey = false};
+    var picFocus = $("picFoucus").getElementsByTagName('li');
+    var listLength = picFocus.length;
+    if(listLength == 3){
+        picFocus[0].onmouseover = function() {
+                moveElement('picList',0,0,10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',0);
+            }
+            picFocus[1].onmouseover = function() {
+                    moveElement('picList',0,-350,10);
+                    classNormal('picFoucus','picText');
+                    classCurrent('picFoucus','picText',1);
+            }
+            picFocus[2].onmouseover = function() {
+                moveElement("picList", 0, -700, 10);
+                classNormal('picFoucus','picText');
+                classCurrent('picFoucus','picText',2);
+            }
+    }
+}
+function operation(n){
+    var x = [0, -225, -450, -675];
+    if(n == 3){
+        moveElement('picList',0,x[n-3],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',0);
+    }else{
+        moveElement('picList',0,x[n+1],10);
+        classNormal('picFoucus','picText');
+        classCurrent('picFoucus','picText',n+1);
+    }
+}
+loadFunction(picSwitch);
+ </script>
+
+  <h3 class="heading">The Golden Wattle</h3>
+  <div class="row">
+      <div class="content col-sm-1">
+      <h2 class="h2" style="margin-left: 0.1em">G<br>arden Pests</h2><br><br><br>
+          <a href="#name" style="font:1.5em Georgia;">Introduction</a><br><br><br>
+          <a href="#identify" style="font:1.5em Georgia;">How to Grow</a><br><br><br>
+          <a href="#control" style="font:1.5em Georgia;">Fertilising and Maintenance of Wattles</a>
+      </div>
+  <div class="body1">
+  <div class="left col-sm-4">
+     <h1 class="h1" id="name">The Golden Wattle</h1>
+      <br>
+            <h2 class="h2">Termed as the floral emblem of Australia, the golden wattle grows yellow attractive flowers. It is a perfect inclusion for your garden as it only grows to 2 or 3 meters at most. There are lots of other native trees species in Melbourne that will be worth your garden consideration. We just gave you 10 that to kick start your search process.</h2>
+      <br>
+  </div>
+  <div class="right col-sm-5">
+
+      <div id="main">
+         <div id="picWhole">
+             <div id="pic">
+                 <div id="picList">
+                     <ul>
+                         <li><a href="../../static/img/Wattle1.jpg" target="_blank"><img src="../../static/img/Wattle1.jpg" alt=""/></a></li>
+                         <li><a href="../../static/img/Wattle2.jpg" target="_blank"><img src="../../static/img/Wattle2.jpg" alt=""/></a></li>
+                         <li><a href="../../static/img/Wattle3.jpg" target="_blank"><img src="../../static/img/Wattle3.jpg" alt=""/></a></li>
+                     </ul>
+                 </div>
+                 <div id="blank"></div>
+                 <div id="picText">
+                     <ul>
+                         <li class="current">The Golden Wattle</li>
+                         <li class="normal">The Golden Wattle</li>
+                         <li class="normal">The Golden Wattle</li>
+                         <li class="normal">The Golden Wattle</li>
+                     </ul>
+                 </div>
+             </div>
+             <div id="picFoucus">
+                 <ul>
+                     <li class="current"><img src="../../static/img/Wattle1.jpg" alt=""/></li>
+                     <li class="normal"><img src="../../static/img/Wattle2.jpg" alt=""/></li>
+                     <li class="normal"><img src="../../static/img/Wattle3.jpg" alt=""/></li>
+                 </ul>
+             </div>
+         </div>
+     </div>
+</div>
+      <div class="bottom col-sm-12">
+          <h1 class="h1" id="identify">How to Grow </h1>
+          <br>
+          <h2 class="h2">In milder climates wattles can be planted at any time of the year.  Regions with hot dry summers should wait until autumn or winter to give them time to settle in before the heat of summer. The prostrate wattles and small growing types (like Acacia cognata) can also be grown in pots but always use a special native potting mix.  Water all plants well with eco-seaweed to reduce the transplant shock and give them a great start.
+<br>
+Wattles can be fussy regarding rainfall and humidity. If they originate from a region with hot dry summers then they may struggle if you live somewhere which experiences humid wet summers.  They may die quickly or just fail to thrive and develop a lot of dieback in older leaves.  Conversely some may go into overdrive with all that extra moisture and end up being very short lived or turn weedy.  Confused? Speak to your local nursery or council to find out which varieties are suited to your area and if any have been listed as weeds for your region.</h2>
+          <br>
+            <h1 class="h1" id="control">Fertilising and Maintenance of Wattles</h1>
+      <br>
+            <h2 class="h2">Wattles, like some other natives, are sensitive to too much phosphorous and typically have low nutrient requirements. Established plants can be fertilised in spring and autumn with a layer of compost or a certified organic native fertiliser. New plants, or those which you wish to push along, can be fed with a mixture of eco-seaweed and eco-aminogro every 2-4 weeks.
+<br>
+If you have an older plant which is showing signs of decline (branch dieback and borers) and you want to try to extend it’s life then apply eco-seaweed and eco-aminogro every 1-2 weeks around the soil. This can often revitalise the plant but bear in mind they are short lived plants and ultimately it will go back into decline.
+<br>
+Wattles do not usually require pruning however some people believe it promotes vigour and extends their life. They give a light prune after flowering finishes.</h2>
+      <br>
+      </div>
+</div>
+</div>
+
+{%endblock content%}

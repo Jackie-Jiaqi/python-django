@@ -1,0 +1,44 @@
+{%extends "base.html"%}
+
+{%block content%}
+<section class="section5">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+<meta name="viewport" content="width=device-width">
+    <style class="text/css">
+        .h2{
+            text-align: center;
+            padding-bottom: 80px;
+            padding-top:0px;
+            font-size: 40px;
+            font-style: unset;
+            font-weight: revert;
+        }
+        .btn-default {
+            color: #ecf0f1 !important;
+            background-color: #2980b9 !important;
+            border-color: #2980b9 !important;
+        }
+        .section5{width:100%;height:1500px}html, body, div, span, applet, object, iframe,
+
+    </style>
+
+<div style="width:100%;height:250px;margin-top:50px;">
+    <div class="col-sm-4" style="width:50%;text-align:right;">
+        <img src="{{instance.image.url}}"  style="height:200px;width:200px;"/>
+    </div>
+	<div class="col-sm-4" style="width:50%;font-size:25px;">
+<br/>
+        <h2>{{leaf_indentify}}</h2><br/>
+        <h2>{{leaf_condition}}</h2><br/>
+        <h2>{{tips}}</h2><br/>
+	</div>
+</div>
+</br></br>
+<div style="margin-left:620px;font-size:28px;margin-bottom:20px;font-weight: bold;">
+<h2>Do you want to try another leaf?</h2>
+<h3>Click on the button to upload another image.</h3>
+	</div>
+<a href="http://127.0.0.1:8000/create/" class="btn btn-default" style="margin-bottom:100px;margin-left:750px;">Upload Another Image</a>
+</section>
+{%endblock content%}
