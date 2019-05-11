@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+import dash_core_components as dcc
+import dash_html_components as html
+from .models import Author
+from django.shortcuts import get_object_or_404
+import pandas as pd
+import plotly.graph_objs as go
+import numpy as np
+{%block content%}
+
+
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <!-- PAGE CONTAINER-->
+        <div class="page-container">
+
+            <!-- MAIN CONTENT-->
+            <div class="main-content">
+                <div class="section__content section__content--p30">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="overview-wrap">
+                                    <h2 class="title-1">Playerload Visualisation</h2>
+
+                                     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                  {{ dash_content | safe}}
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="copyright">
+                                    <p>Copyright © 2018 Axicor. All rights reserved. Data science by <a href="https://www.axicor.com">Axicor</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END MAIN CONTENT-->
+            <!-- END PAGE CONTAINER-->
+        </div>
+
+    </div>
+
+
+</body>
+
+{% endblock %}
+<!-- end document-->

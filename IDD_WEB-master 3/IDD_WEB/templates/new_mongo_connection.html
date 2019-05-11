@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-header d-flex align-items-center">
+                <h4>Create a new database connection</h4>
+            </div>
+            <div class="card-body">
+                    <form method="post", id="mongo-form", name="mongo-form", enctype="multipart/form-data">
+                                {% csrf_token %}
+                    <div class="line"></div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label" for="mongo-form-dbname">Database Name</label>
+                            <div class="col-sm-4">
+                                {{ form.dbname }}
+                                <!-- <input type="text" placeholder="e.g. Finance" class="form-control"> -->
+                            </div>
+                        </div>
+
+                        <div class="line"></div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label" for="mongo-form-ip">Server Address</label>
+                            <div class="col-sm-7">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        {{ form.ip }}
+                                    </div>
+
+                                    <label for="mongo-form-port">Port</label>
+                                    <div class="col-md-2">
+                                         {{ form.port }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="line"></div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label" for="mongo-form-username" >Username</label>
+                            <div class="col-sm-4">
+                                {{ form.username }}
+                            </div>
+                        </div>
+
+                        <div class="line"></div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label" for="mongo-form-auth_collection" >Authentication Database</label>
+                            <div class="col-sm-4">
+                                {{ form.auth_collection }}
+                            </div>
+                        </div>
+
+
+                        <div class="line"></div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label" for="mongo-form-password">Password</label>
+                            <div class="col-sm-4">
+                                {{ form.password }}
+                                <!-- <input type="password" name="password" class="form-control"> -->
+                            </div>
+                        </div>
+
+
+                        <div class="line"></div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 form-control-label">Other Options</label>
+                            <div class="col-sm-10">
+                                <div>
+                                    <input id="option" type="checkbox" value="">
+                                    <label for="option">SSL</label>
+                                </div>
+
+                                <div>
+                                    <input id="option" type="checkbox" value="">
+                                    <label for="option">Save Connection</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="line"></div>
+                        <div class="form-group row">
+                            <div class="col-sm-4 offset-sm-2">
+                                <button type="submit" class="btn btn-secondary">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Connect</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+
+{% endblock %}

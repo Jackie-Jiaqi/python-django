@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table style='width: 1000px'>
+
+    <tr>
+        <th>ID</th>
+        <th>Author Name</th>
+        <th>Link</th>
+
+    {% for author in authors %}
+
+      <tr>
+        <td> {{ author.id }} </td>
+        <td> {{ author.name }} </td>
+        <td>  <a href="{% url 'dashboard:team' author.id %}">Go to Dash </a>
+      </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

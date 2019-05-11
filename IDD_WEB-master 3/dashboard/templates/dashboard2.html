@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+      <br>
+      <h4>About Author: {{author.name}} </h4>
+
+      <p>Cupcake ipsum dolor sit amet tootsie roll lemon drops. Marzipan gummi bears wafer. Jujubes topping sesame snaps oat cake gummies. Tootsie roll tootsie roll jelly-o dessert croissant</p> <br>
+
+      <a href="{% url 'dashboard:index' %}">Go Back</a> </td>
+
+      <div>
+
+            {{ dash_content | safe}}
+
+      </div>
+
+{% endblock %}
